@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTC时间转换工具</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+
+<body>
+    <h1>UTC时间转换工具</h1>
+    <form>
+        <label for="utcInput">输入UTC时间（格式：YYYY-MM-DDTHH:mm:ss.SSSZ）：</label>
+        <input type="text" id="utcInput" name="utcInput" required><br><br>
+        <input type="radio" id="localRadio" name="convertType" value="local" checked>
+        <label for="localRadio">转换为本地时间</label><br>
+        <input type="radio" id="utcRadio" name="convertType" value="utc">
+        <label for="utcRadio">转换为UTC时间</label><br><br>
+        <input type="button" value="转换" onclick="convertTime()"><br><br>
+        <label for="output">转换结果：</label>
+        <input type="text" id="output" name="output" readonly>
+    </form>
+    <script>
+        function convertTime() {
+            var utcInput = document.getElementById("utcInput").value;
+            var convertType = document.querySelector('input[name="convertType"]:checked').value;
+            var output = document.getElementById("output");
+
+            if (convertType === "local") {
+                var localTime = moment.utc(utcInput).local().format("YYYY-MM-DD HH:mm:ss");
+                output.value = localTime;
+            } else {
+                var utcTime = moment.utc(utcInput).format("YYYY-MM-DD HH:mm:ss");
+                output.value = utcTime;
+            }
+        }
+    </script>
+</body>
+
+</html>
